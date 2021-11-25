@@ -15,4 +15,3 @@ public class StatisticsRequest {
 
     private String earlyFormat;
 }
-
