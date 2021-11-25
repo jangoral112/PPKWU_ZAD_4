@@ -41,4 +41,23 @@ public class FileController {
         return new ResponseEntity<>(in.readAllBytes(), httpHeaders, HttpStatus.OK);
     }
 
+    @PostMapping("/file/convert/{format}")
+    public ResponseEntity<byte[]> convertFile(@PathVariable("format") String format, @RequestParam("file") MultipartFile file) throws IOException {
+
+        InputStream in = fileService.convertStringStatisticsFile(format, file);
+
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        switch (format) {
+            case "txt": httpHeaders.setContentType(MediaType.TEXT_PLAIN);
+                break;
+            case "json": httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+                break;
+            case "xml": httpHeaders.setContentType(MediaType.TEXT_XML);
+                break;
+            case "csv": httpHeaders.setContentType(new MediaType("text", "csv", Charset.forName("utf-8")));
+                break;
+        }
+        return new ResponseEntity<>(in.readAllBytes(), httpHeaders, HttpStatus.OK);
+    }
+
 }

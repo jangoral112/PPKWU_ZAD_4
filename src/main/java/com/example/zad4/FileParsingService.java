@@ -14,7 +14,6 @@ public class FileParsingService {
     public StringStatistics parseFile(String fileFormat, byte[] file) {
         StringStatistics statistics = null;
         String fileAsString = new String(file);
-        System.out.println(fileAsString);
 
         switch (fileFormat) {
             case "txt": statistics = parseTextFile(fileAsString);
