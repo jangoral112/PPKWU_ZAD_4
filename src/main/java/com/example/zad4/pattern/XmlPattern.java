@@ -8,10 +8,10 @@ public class XmlPattern {
 
     public static final Pattern LowerLettersPattern = Pattern.compile("<lowercaseLetters>\\s*(\\d+)</lowercaseLetters>");
 
-    public static final Pattern DigitsLettersPattern = Pattern.compile("<digits>\\s*(\\d+)</digits>");
+    public static final Pattern DigitsPattern = Pattern.compile("<digits>\\s*(\\d+)</digits>");
 
-    public static final Pattern SpecialCharactersLettersPattern = Pattern.compile("<specialCharacters>\\s*(\\d+)</specialCharacters>");
+    public static final Pattern SpecialCharactersPattern = Pattern.compile("<specialCharacters>\\s*(\\d+)</specialCharacters>");
 
-    public static final Pattern LettersPattern = Pattern.compile("<combinationHits>\\s*(\\d+)</combinationHits>");
+    public static final Pattern CombinationHitsPattern = Pattern.compile("<combinationHits>\\s*(\\d+)</combinationHits>");
 
 }

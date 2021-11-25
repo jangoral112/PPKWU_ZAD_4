@@ -8,10 +8,10 @@ public class TxtPattern {
 
     public static final Pattern LowerLettersPattern = Pattern.compile("Lowercase letters:\\s*(\\d+)");
 
-    public static final Pattern DigitsLettersPattern = Pattern.compile("Digits:\\s*(\\d+)");
+    public static final Pattern DigitsPattern = Pattern.compile("Digits:\\s*(\\d+)");
 
-    public static final Pattern SpecialCharactersLettersPattern = Pattern.compile("Special characters:\\s*(\\d+)");
+    public static final Pattern SpecialCharactersPattern = Pattern.compile("Special characters:\\s*(\\d+)");
 
-    public static final Pattern LettersPattern = Pattern.compile("Combination hits:\\s*(\\d+)");
+    public static final Pattern CombinationHitsPattern = Pattern.compile("Combination hits:\\s*(\\d+)");
 
 }
