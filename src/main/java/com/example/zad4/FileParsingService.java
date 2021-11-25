@@ -5,6 +5,7 @@ import com.example.zad4.pattern.JsonPattern;
 import com.example.zad4.pattern.TxtPattern;
 import com.example.zad4.pattern.XmlPattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,7 @@ public class FileParsingService {
     public StringStatistics parseFile(String fileFormat, byte[] file) {
         StringStatistics statistics = null;
         String fileAsString = new String(file);
+        System.out.println(fileAsString);
 
         switch (fileFormat) {
             case "txt": statistics = parseTextFile(fileAsString);
@@ -30,43 +32,49 @@ public class FileParsingService {
 
     private StringStatistics parseTextFile(String file) {
         return  StringStatistics.builder()
-            .lowercaseLetters(Long.parseLong(TxtPattern.LowerLettersPattern.matcher(file).group(0)))
-            .uppercaseLetters(Long.parseLong(TxtPattern.UppercaseLettersPattern.matcher(file).group(0)))
-            .digits(Long.parseLong(TxtPattern.DigitsPattern.matcher(file).group(0)))
-            .specialCharacters(Long.parseLong(TxtPattern.SpecialCharactersPattern.matcher(file).group(0)))
-            .combinationHits(Long.parseLong(TxtPattern.CombinationHitsPattern.matcher(file).group(0)))
+            .lowercaseLetters(findFirstGroup(file, TxtPattern.LowerLettersPattern))
+            .uppercaseLetters(findFirstGroup(file, TxtPattern.UppercaseLettersPattern))
+            .digits(findFirstGroup(file, TxtPattern.DigitsPattern))
+            .specialCharacters(findFirstGroup(file, TxtPattern.SpecialCharactersPattern))
+            .combinationHits(findFirstGroup(file, TxtPattern.CombinationHitsPattern))
             .build();
     }
 
     private StringStatistics parseXmlFile(String file) {
         return  StringStatistics.builder()
-            .lowercaseLetters(Long.parseLong(XmlPattern.LowerLettersPattern.matcher(file).group(0)))
-            .uppercaseLetters(Long.parseLong(XmlPattern.UppercaseLettersPattern.matcher(file).group(0)))
-            .digits(Long.parseLong(XmlPattern.DigitsPattern.matcher(file).group(0)))
-            .specialCharacters(Long.parseLong(XmlPattern.SpecialCharactersPattern.matcher(file).group(0)))
-            .combinationHits(Long.parseLong(XmlPattern.CombinationHitsPattern.matcher(file).group(0)))
+            .lowercaseLetters(findFirstGroup(file, XmlPattern.LowerLettersPattern))
+            .uppercaseLetters(findFirstGroup(file, XmlPattern.UppercaseLettersPattern))
+            .digits(findFirstGroup(file, XmlPattern.DigitsPattern))
+            .specialCharacters(findFirstGroup(file, XmlPattern.SpecialCharactersPattern))
+            .combinationHits(findFirstGroup(file, XmlPattern.CombinationHitsPattern))
             .build();
     }
 
     private StringStatistics parseJsonFile(String file) {
-        return StringStatistics.builder()
-            .lowercaseLetters(Long.parseLong(JsonPattern.LowerLettersPattern.matcher(file).group(0)))
-            .uppercaseLetters(Long.parseLong(JsonPattern.UppercaseLettersPattern.matcher(file).group(0)))
-            .digits(Long.parseLong(JsonPattern.DigitsPattern.matcher(file).group(0)))
-            .specialCharacters(Long.parseLong(JsonPattern.SpecialCharactersPattern.matcher(file).group(0)))
-            .combinationHits(Long.parseLong(JsonPattern.CombinationHitsPattern.matcher(file).group(0)))
+        return  StringStatistics.builder()
+            .lowercaseLetters(findFirstGroup(file, JsonPattern.LowerLettersPattern))
+            .uppercaseLetters(findFirstGroup(file, JsonPattern.UppercaseLettersPattern))
+            .digits(findFirstGroup(file, JsonPattern.DigitsPattern))
+            .specialCharacters(findFirstGroup(file, JsonPattern.SpecialCharactersPattern))
+            .combinationHits(findFirstGroup(file, JsonPattern.CombinationHitsPattern))
             .build();
     }
 
     private StringStatistics parseCsvFile(String file) {
         Matcher matcher = CsvPattern.GeneralPattern.matcher(file);
-
+        matcher.find();
         return StringStatistics.builder()
-            .lowercaseLetters(Long.parseLong(matcher.group(0)))
-            .uppercaseLetters(Long.parseLong(matcher.group(1)))
-            .digits(Long.parseLong(matcher.group(2)))
-            .specialCharacters(Long.parseLong(matcher.group(3)))
-            .combinationHits(Long.parseLong(matcher.group(4)))
+            .lowercaseLetters(Long.parseLong(matcher.group(1)))
+            .uppercaseLetters(Long.parseLong(matcher.group(2)))
+            .digits(Long.parseLong(matcher.group(3)))
+            .specialCharacters(Long.parseLong(matcher.group(4)))
+            .combinationHits(Long.parseLong(matcher.group(5)))
             .build();
+    }
+
+    private Long findFirstGroup(String text, Pattern pattern) {
+        Matcher matcher = pattern.matcher(text);
+        matcher.find();
+        return Long.parseLong(matcher.group(1));
     }
 }

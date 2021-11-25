@@ -14,7 +14,7 @@ public class StatisticsClient {
     public byte[] stringStatistics(StatisticsRequest statisticsRequest) {
 
         RequestEntity<StatisticsRequest> request = RequestEntity
-            .post("http://localhost:8081/statistics")
+            .post("http://localhost:8081/statistics/file/" + statisticsRequest.getEarlyFormat())
             .headers(headers -> {
                 headers.setContentType(MediaType.APPLICATION_JSON);
                 headers.setAccept(List.of(MediaType.APPLICATION_JSON));
