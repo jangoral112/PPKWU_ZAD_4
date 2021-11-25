@@ -4,32 +4,11 @@
 **Application port**: 8081  <br />
 **Protocol**: http
 
-### String statistics v1
+### String statistics
 
-Returns file in given format containing string statistics
+Returns file in given format containing string statistics, with specified 
 
-**Path**: /v1/statistics/file/:format <br />
-**Method**: POST <br />
-
-**Headers**: <br />
-Content-Type: application/json
-
-**Path parameters**: <br />
-format: file format (json | txt | xml | csv)
-
-**Request body**:
-```
-{
-    "text": "Text for statistcs",
-    "combination": "additional combination of characters to be search for as String"
-}
-```
-
-### String statistics v2
-
-Returns file in given format containing string statistics
-
-**Path**: /v2/statistics/file/:format <br />
+**Path**: /statistics/file/:format <br />
 **Method**: POST <br />
 
 **Headers**: <br />
@@ -45,7 +24,21 @@ format: file format (json | txt | xml | csv)
     "combination": "additional combination of characters to be search for as String"
     "earlyFormat": "csv"
 }
+
 ```
+
+### File conversion
+
+Converts input file from its format to given in path format
+
+**Path**: /file/conversion/:format <br />
+**Method**: POST <br />
+
+**Headers**: <br />
+Content-Type: application/json
+
+**Path parameters**: <br />
+format: file format (json | txt | xml | csv)
 
 **Sample response for format JSON for status *OK* *200*:**
 ```
